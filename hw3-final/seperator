@@ -1,0 +1,5 @@
+#!/bin/bash
+procs=$1
+folderNames=(jpegs pngs txts audios)
+printf "%s\n"  "${folderNames[@]}" | xargs -I {} --max-procs=$procs bash -c 'if [ ! -d {} ]; then mkdir {}; fi'
+find allFiles/* | xargs -I {} --max-procs=$procs bash -c 'if [ $(file --mime-type -b {}) = "audio/mpeg" ];then cp {} audios/;elif [ $(file --mime-type -b {}) = "text/plain" ];then cp {} txts/;elif [ $(file --mime-type -b {}) = "image/jpeg" ];then cp {} jpegs/;elif [ $(file --mime-type -b {}) = "image/png" ];then cp {} pngs/;fi'

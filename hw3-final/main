@@ -1,0 +1,19 @@
+#!/bin/bash
+procs=$1
+
+echo Performance with 1 processor;
+time ./seperator 1
+wait
+rm -r audios/ jpegs/ pngs/ txts/
+
+echo
+
+if [ -z "$procs" ]
+then
+	procs=4
+fi
+
+echo Performance with $procs processors;
+time ./seperator $procs
+wait
+rm -r audios/ jpegs/ pngs/ txts/
